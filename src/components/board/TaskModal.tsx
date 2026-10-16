@@ -89,7 +89,11 @@ function TaskForm({
   const saving = create.isPending || update.isPending;
   const error = create.error ?? update.error;
   const titleError =
-    submitted && !title.trim() ? 'Give the task a title.' : title.length > 200 ? 'Keep the title under 200 characters.' : undefined;
+    submitted && !title.trim()
+      ? 'Give the task a title.'
+      : title.length > 200
+        ? 'Keep the title under 200 characters.'
+        : undefined;
   const descError = description.length > 5000 ? 'Keep the description under 5000 characters.' : undefined;
 
   const onSubmit = (e: FormEvent) => {
@@ -137,7 +141,12 @@ function TaskForm({
         footer={
           <>
             {editing && (
-              <Button variant="danger-ghost" className="mr-auto" onClick={() => setConfirmDelete(true)} disabled={saving}>
+              <Button
+                variant="danger-ghost"
+                className="mr-auto"
+                onClick={() => setConfirmDelete(true)}
+                disabled={saving}
+              >
                 <IconTrash className="h-4 w-4" /> Delete
               </Button>
             )}

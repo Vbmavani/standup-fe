@@ -10,7 +10,12 @@ export function Dropdown({
   className,
   menuClassName,
 }: {
-  trigger: (props: { open: boolean; toggle: () => void; 'aria-expanded': boolean; 'aria-haspopup': 'menu' }) => ReactNode;
+  trigger: (props: {
+    open: boolean;
+    toggle: () => void;
+    'aria-expanded': boolean;
+    'aria-haspopup': 'menu';
+  }) => ReactNode;
   children: (close: () => void) => ReactNode;
   align?: 'left' | 'right';
   side?: 'bottom' | 'top';
@@ -71,7 +76,7 @@ export function MenuSeparator() {
 
 export function MenuLabel({ children }: { children: ReactNode }) {
   return (
-    <div className="px-2.5 pb-1 pt-1.5 text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">
+    <div className="px-2.5 pt-1.5 pb-1 text-xs font-medium tracking-wide text-zinc-400 uppercase dark:text-zinc-500">
       {children}
     </div>
   );

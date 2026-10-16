@@ -29,7 +29,7 @@ function SidebarNav() {
           to={to}
           className={({ isActive }) =>
             clsx(
-              'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+              'flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none',
               isActive
                 ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300'
                 : 'text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100',
@@ -46,14 +46,17 @@ function SidebarNav() {
 
 function TopNav() {
   return (
-    <nav className="-mb-px flex gap-1 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" aria-label="Team">
+    <nav
+      className="-mb-px flex [scrollbar-width:none] gap-1 overflow-x-auto px-3 [&::-webkit-scrollbar]:hidden"
+      aria-label="Team"
+    >
       {NAV.map(({ to, label, icon: Icon }) => (
         <NavLink
           key={to}
           to={to}
           className={({ isActive }) =>
             clsx(
-              'flex shrink-0 items-center gap-1.5 border-b-2 px-2.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-indigo-500',
+              'flex shrink-0 items-center gap-1.5 border-b-2 px-2.5 py-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none focus-visible:ring-inset',
               isActive
                 ? 'border-indigo-600 text-indigo-700 dark:border-indigo-400 dark:text-indigo-300'
                 : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100',
@@ -68,7 +71,15 @@ function TopNav() {
   );
 }
 
-function TeamUnavailable({ status, message, onRetry }: { status: number | null; message: string; onRetry?: () => void }) {
+function TeamUnavailable({
+  status,
+  message,
+  onRetry,
+}: {
+  status: number | null;
+  message: string;
+  onRetry?: () => void;
+}) {
   const title =
     status === 404 ? 'Team not found' : status === 403 ? "You're not a member of this team" : "Couldn't load this team";
   const body =
@@ -93,7 +104,7 @@ function TeamUnavailable({ status, message, onRetry }: { status: number | null; 
           )}
           <Link
             to="/teams"
-            className="inline-flex h-9 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2"
+            className="inline-flex h-9 items-center rounded-lg bg-indigo-600 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             Back to my teams
           </Link>
@@ -165,7 +176,7 @@ export function TeamLayout() {
           <div className="flex h-14 items-center px-4">
             <Link
               to="/teams"
-              className="flex items-center gap-2 rounded-lg text-sm font-semibold tracking-tight text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-zinc-100"
+              className="flex items-center gap-2 rounded-lg text-sm font-semibold tracking-tight text-zinc-900 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-zinc-100"
             >
               <IconLogo className="h-6 w-6" />
               Standup Board
@@ -185,7 +196,11 @@ export function TeamLayout() {
         {/* Mobile / tablet top bar */}
         <header className="sticky top-0 z-30 border-b border-zinc-200 bg-white/90 backdrop-blur lg:hidden dark:border-zinc-800 dark:bg-zinc-950/90">
           <div className="flex h-14 items-center gap-2 px-3">
-            <Link to="/teams" aria-label="All teams" className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+            <Link
+              to="/teams"
+              aria-label="All teams"
+              className="rounded-lg focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
+            >
               <IconLogo className="h-7 w-7" />
             </Link>
             <div className="min-w-0 flex-1">

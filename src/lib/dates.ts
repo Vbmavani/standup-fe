@@ -65,7 +65,11 @@ export function formatWeekRange(start: string, end: string = addDays(start, 6)):
   const s = parseDateKey(start);
   const e = parseDateKey(end);
   const sameYear = s.getFullYear() === e.getFullYear();
-  const left = s.toLocaleDateString(undefined, { month: 'short', day: 'numeric', ...(sameYear ? {} : { year: 'numeric' }) });
+  const left = s.toLocaleDateString(undefined, {
+    month: 'short',
+    day: 'numeric',
+    ...(sameYear ? {} : { year: 'numeric' }),
+  });
   const right = e.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   return `${left} – ${right}`;
 }

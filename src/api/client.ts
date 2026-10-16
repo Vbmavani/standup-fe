@@ -30,16 +30,14 @@ export function parseApiError(status: number, body: unknown, statusText = ''): A
       const { code, message } = e as { code?: unknown; message?: unknown };
       return new ApiError(
         status,
-        typeof code === 'string' ? code : FALLBACK_CODES[status] ?? 'INTERNAL',
+        typeof code === 'string' ? code : (FALLBACK_CODES[status] ?? 'INTERNAL'),
         typeof message === 'string' && message ? message : statusText || 'Request failed',
       );
     }
   }
   const code = FALLBACK_CODES[status] ?? 'INTERNAL';
   const message =
-    status >= 500 || status === 0
-      ? 'Something went wrong. Please try again.'
-      : statusText || 'Request failed';
+    status >= 500 || status === 0 ? 'Something went wrong. Please try again.' : statusText || 'Request failed';
   return new ApiError(status, code, message);
 }
 

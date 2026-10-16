@@ -53,9 +53,7 @@ export function formatActivity(item: Pick<ActivityItem, 'type' | 'actorName' | '
       const fields = Array.isArray(d.fields)
         ? (d.fields as unknown[]).filter((f): f is string => typeof f === 'string').map((f) => FIELD_LABELS[f] ?? f)
         : [];
-      return fields.length
-        ? `${who} updated the ${joinList(fields)} of ${quoted}`
-        : `${who} updated ${quoted}`;
+      return fields.length ? `${who} updated the ${joinList(fields)} of ${quoted}` : `${who} updated ${quoted}`;
     }
     case 'task.moved': {
       const from = str(d.from);

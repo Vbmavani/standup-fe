@@ -1,9 +1,16 @@
 import clsx from 'clsx';
-import { forwardRef, useId, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import {
+  forwardRef,
+  useId,
+  type InputHTMLAttributes,
+  type ReactNode,
+  type SelectHTMLAttributes,
+  type TextareaHTMLAttributes,
+} from 'react';
 
 export const fieldClass = clsx(
   'block w-full rounded-lg border border-zinc-300 bg-white px-3 text-sm text-zinc-900 shadow-sm transition-colors',
-  'placeholder:text-zinc-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/20',
+  'placeholder:text-zinc-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none',
   'disabled:cursor-not-allowed disabled:bg-zinc-50 disabled:text-zinc-500',
   'dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:disabled:bg-zinc-900/60',
   'aria-[invalid=true]:border-red-500 aria-[invalid=true]:focus:ring-red-500/20',
@@ -52,7 +59,11 @@ export const Input = forwardRef<HTMLInputElement, InputHTMLAttributes<HTMLInputE
   const inputId = id ?? autoId;
   return (
     <div className={className}>
-      {label && <Label htmlFor={inputId} hint={hint}>{label}</Label>}
+      {label && (
+        <Label htmlFor={inputId} hint={hint}>
+          {label}
+        </Label>
+      )}
       <input
         ref={ref}
         id={inputId}
@@ -72,7 +83,11 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<H
     const inputId = id ?? autoId;
     return (
       <div className={className}>
-        {label && <Label htmlFor={inputId} hint={hint}>{label}</Label>}
+        {label && (
+          <Label htmlFor={inputId} hint={hint}>
+            {label}
+          </Label>
+        )}
         <textarea
           ref={ref}
           id={inputId}
@@ -93,7 +108,11 @@ export const Select = forwardRef<HTMLSelectElement, SelectHTMLAttributes<HTMLSel
     const inputId = id ?? autoId;
     return (
       <div className={className}>
-        {label && <Label htmlFor={inputId} hint={hint}>{label}</Label>}
+        {label && (
+          <Label htmlFor={inputId} hint={hint}>
+            {label}
+          </Label>
+        )}
         <select
           ref={ref}
           id={inputId}

@@ -24,7 +24,7 @@ export function Avatar({
       title={name ?? undefined}
       aria-hidden={!name}
       className={clsx(
-        'inline-flex shrink-0 select-none items-center justify-center rounded-full font-semibold ring-2 ring-white dark:ring-zinc-900',
+        'inline-flex shrink-0 items-center justify-center rounded-full font-semibold ring-2 ring-white select-none dark:ring-zinc-900',
         avatarColor(id ?? name ?? '?'),
         sizes[size],
         className,

@@ -5,13 +5,16 @@ Frontend for Standup Board, a team async-standup and task board. The backend liv
 - Full product spec and **API contract**: `docs/PLAN.md`. Keep it in sync with `../standup-be/docs/PLAN.md`.
 
 ## Stack
+
 React 18 · Vite · TypeScript (strict) · React Router 6 · TanStack Query 5 · Tailwind CSS · dnd-kit · Vitest
 
 ## Ports
+
 - Web: `http://localhost:5173`
 - API: `http://localhost:4000`. The Vite dev server proxies `/api` there, so the code always calls relative `/api/...` URLs and the session cookie stays same-origin.
 
 ## Commands
+
 ```bash
 pnpm install
 pnpm dev          # vite on 5173 (the API must be running on 4000)
@@ -21,6 +24,7 @@ pnpm test
 ```
 
 ## Layout
+
 ```
 src/
   main.tsx, App.tsx     # providers + router
@@ -34,6 +38,7 @@ src/
 ```
 
 ## Conventions
+
 - All server data goes through TanStack Query. Query keys: `['me']`, `['teams']`, `['team', id]`, `['tasks', id]`, `['standups', id, date]`, `['activity', id]`, `['summary', id, weekStart]`.
 - Mutations invalidate their keys. Live updates come from `useTeamEvents`.
 - Reusable UI primitives live in `components/ui`. Style with Tailwind utility classes, no CSS modules.

@@ -1,7 +1,17 @@
 import type { ReactNode } from 'react';
 import { IconLogo } from '../ui/icons';
 
-export function AuthLayout({ title, subtitle, children, footer }: { title: string; subtitle?: ReactNode; children: ReactNode; footer?: ReactNode }) {
+export function AuthLayout({
+  title,
+  subtitle,
+  children,
+  footer,
+}: {
+  title: string;
+  subtitle?: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+}) {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center px-4 py-12">
       <div

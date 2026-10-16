@@ -43,7 +43,9 @@ describe('formatActivity', () => {
 
   it('describes standups', () => {
     expect(formatActivity(item('standup.submitted', { date: 'not-a-date' }))).toBe('Alice posted their standup');
-    expect(formatActivity(item('standup.submitted', { date: '2026-10-16' }))).toMatch(/^Alice posted their standup for /);
+    expect(formatActivity(item('standup.submitted', { date: '2026-10-16' }))).toMatch(
+      /^Alice posted their standup for /,
+    );
   });
 
   it('falls back gracefully on missing data', () => {

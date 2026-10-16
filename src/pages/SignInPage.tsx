@@ -26,7 +26,11 @@ export function SignInPage() {
       footer={
         <>
           New here?{' '}
-          <Link to="/signup" state={state} className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">
+          <Link
+            to="/signup"
+            state={state}
+            className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+          >
             Create an account
           </Link>
         </>

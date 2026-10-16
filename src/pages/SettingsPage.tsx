@@ -5,7 +5,18 @@ import { qk } from '../api/queryKeys';
 import { teamsApi } from '../api/teams';
 import type { Member, Team } from '../api/types';
 import { PageHeader } from '../components/layout/AppShell';
-import { Avatar, Badge, Button, Card, CardBody, CardHeader, ConfirmModal, FormError, Input, useToast } from '../components/ui';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  ConfirmModal,
+  FormError,
+  Input,
+  useToast,
+} from '../components/ui';
 import { IconCheck, IconCopy, IconLogOut, IconRefresh } from '../components/ui/icons';
 import { useTeamContext } from '../hooks/useTeamContext';
 import { errorMessage } from '../lib/errors';
@@ -66,7 +77,11 @@ function TeamNameCard() {
                 if (rename.isError) rename.reset();
               }}
             />
-            {rename.isError && <div className="mt-2"><FormError>{errorMessage(rename.error)}</FormError></div>}
+            {rename.isError && (
+              <div className="mt-2">
+                <FormError>{errorMessage(rename.error)}</FormError>
+              </div>
+            )}
           </div>
           {isOwner && (
             <Button type="submit" loading={rename.isPending} disabled={!dirty || !trimmed}>
@@ -116,7 +131,7 @@ function InviteCard() {
       <CardBody>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <code
-            className="flex-1 select-all rounded-lg border border-dashed border-zinc-300 bg-zinc-50 px-4 py-2.5 text-center font-mono text-lg font-semibold tracking-[0.3em] text-zinc-900 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
+            className="flex-1 rounded-lg border border-dashed border-zinc-300 bg-zinc-50 px-4 py-2.5 text-center font-mono text-lg font-semibold tracking-[0.3em] text-zinc-900 select-all dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100"
             aria-label="Invite code"
           >
             {team.inviteCode}

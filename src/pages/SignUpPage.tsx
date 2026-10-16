@@ -15,7 +15,8 @@ export function SignUpPage() {
   const location = useLocation();
   const state = location.state as RedirectState | null;
 
-  const passwordError = touched && password.length > 0 && password.length < 8 ? 'Use at least 8 characters.' : undefined;
+  const passwordError =
+    touched && password.length > 0 && password.length < 8 ? 'Use at least 8 characters.' : undefined;
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -31,7 +32,11 @@ export function SignUpPage() {
       footer={
         <>
           Already have an account?{' '}
-          <Link to="/signin" state={state} className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">
+          <Link
+            to="/signin"
+            state={state}
+            className="font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
+          >
             Sign in
           </Link>
         </>
@@ -39,7 +44,14 @@ export function SignUpPage() {
     >
       <form onSubmit={onSubmit} className="space-y-4" noValidate>
         <FormError>{signUp.isError ? errorMessage(signUp.error) : null}</FormError>
-        <Input label="Name" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} autoFocus />
+        <Input
+          label="Name"
+          autoComplete="name"
+          required
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          autoFocus
+        />
         <Input
           label="Email"
           type="email"
