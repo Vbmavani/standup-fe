@@ -19,6 +19,9 @@ React 18 · Vite · TypeScript (strict) · React Router 6 · TanStack Query 5 ·
 pnpm install
 pnpm dev          # vite on 5173 (the API must be running on 4000)
 pnpm typecheck
+pnpm lint         # eslint (lint:fix to autofix)
+pnpm format       # prettier --write (format:check in CI)
+pnpm check        # lint + format:check + typecheck + test + build (pre-push hook)
 pnpm build && pnpm preview
 pnpm test
 ```
@@ -38,6 +41,8 @@ src/
 ```
 
 ## Conventions
+
+- Git hooks (Husky): pre-commit runs lint-staged (eslint --fix + prettier on staged files), pre-push runs `pnpm check`.
 
 - All server data goes through TanStack Query. Query keys: `['me']`, `['teams']`, `['team', id]`, `['tasks', id]`, `['standups', id, date]`, `['activity', id]`, `['summary', id, weekStart]`.
 - Mutations invalidate their keys. Live updates come from `useTeamEvents`.
