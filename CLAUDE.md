@@ -37,9 +37,11 @@ If port 5173 is busy, run `pnpm exec vite --port 5180`. The proxy means no backe
 
 Before you say a task is finished:
 
-1. `pnpm check` passes. The pre-push hook runs the same command, so a failing check blocks the push.
-2. Pure logic in `src/lib/` or `src/hooks/` has a co-located `*.test.ts`.
-3. UI changes are checked in a real browser against the running API: the page loads, there are no console errors, and the flow works.
+1. `pnpm lint`, `pnpm typecheck` and `pnpm test` pass. `pnpm check` runs all three plus `format:check` and `build`, and the pre-push hook runs it too.
+2. API changes are reflected in `docs/PLAN.md` in **both** repos.
+3. New pages use `components/ui` primitives.
+4. Pure logic in `src/lib/` or `src/hooks/` has a co-located `*.test.ts`.
+5. UI changes are checked in a real browser against the running API: the page loads, there are no console errors, and the flow works.
 
 ## Where things live
 
@@ -98,7 +100,10 @@ Routes: `/signin`, `/signup`, `/teams`, `/profile`, `/t/:teamId/{standup|board|a
 - Hard-code `http://localhost:4000` in app code. The proxy handles it.
 - Store auth tokens in localStorage. Auth is the httpOnly `sid` cookie only.
 - Add CSS files or CSS modules. Global styles live only in `src/index.css`.
-- Edit `pnpm-lock.yaml` by hand or commit `dist/` / `.env*`.
+- Edit `.env` files or `pnpm-lock.yaml` by hand, or commit `dist/`.
+- Commit with `--no-verify`. Fix whatever the hook reports instead.
+- Flush Redis DB 0 (the backend's local dev data) while testing the UI.
+- Push to `main`. Push a branch and open a PR.
 
 ## Gotchas
 
@@ -110,6 +115,6 @@ Routes: `/signin`, `/signup`, `/teams`, `/profile`, `/t/:teamId/{standup|board|a
 
 ## Git
 
-- Work on a branch (currently `agent-playground`). Use conventional commit messages: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `style:`.
+- Work on a branch (currently `agent-playground`) and open a PR into `main`. Never push to `main` directly. Use conventional commit messages: `feat:`, `fix:`, `chore:`, `docs:`, `test:`, `style:`.
 - Husky hooks: **pre-commit** runs lint-staged (eslint --fix + prettier on staged files), **pre-push** runs `pnpm check`.
 - Personal, uncommitted notes go in `CLAUDE.local.md`, which is gitignored.
