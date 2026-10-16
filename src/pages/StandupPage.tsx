@@ -6,11 +6,32 @@ import { qk } from '../api/queryKeys';
 import { standupsApi } from '../api/standups';
 import type { StandupDay, StandupEntry } from '../api/types';
 import { PageHeader } from '../components/layout/AppShell';
-import { Avatar, Badge, Button, Card, CardBody, CardHeader, EmptyState, FormError, Skeleton, Textarea, fieldClass, useToast } from '../components/ui';
+import {
+  Avatar,
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  EmptyState,
+  FormError,
+  Skeleton,
+  Textarea,
+  fieldClass,
+  useToast,
+} from '../components/ui';
 import { IconAlert, IconCheck, IconChevronLeft, IconChevronRight, IconMessage } from '../components/ui/icons';
 import { useStandups } from '../hooks/queries';
 import { useTeamContext } from '../hooks/useTeamContext';
-import { addDays, formatDateLong, formatDateTime, isDateKey, localToday, relativeDayLabel, timeAgo } from '../lib/dates';
+import {
+  addDays,
+  formatDateLong,
+  formatDateTime,
+  isDateKey,
+  localToday,
+  relativeDayLabel,
+  timeAgo,
+} from '../lib/dates';
 import { errorMessage } from '../lib/errors';
 
 const MAX = 2000;
@@ -72,6 +93,8 @@ function MyEntryForm({ teamId, date, entry }: { teamId: string; date: string; en
       baseline.current = next;
       setValues(next);
     }
+    // Only re-sync when the saved entry changes, not on every local edit.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry?.updatedAt]);
 
   const save = useMutation({
@@ -95,8 +118,7 @@ function MyEntryForm({ teamId, date, entry }: { teamId: string; date: string; en
     },
   });
 
-  const todayError =
-    submitted && !values.today.trim() ? 'Tell your team what you plan to work on.' : undefined;
+  const todayError = submitted && !values.today.trim() ? 'Tell your team what you plan to work on.' : undefined;
   const tooLong = (s: string) => (s.length > MAX ? `Keep it under ${MAX} characters.` : undefined);
 
   const onSubmit = (e: FormEvent) => {
@@ -183,8 +205,8 @@ function Section({ label, text }: { label: string; text: string }) {
   if (!text.trim()) return null;
   return (
     <div>
-      <div className="text-xs font-medium uppercase tracking-wide text-zinc-400 dark:text-zinc-500">{label}</div>
-      <p className="mt-1 whitespace-pre-wrap break-words text-sm text-zinc-700 dark:text-zinc-300">{text}</p>
+      <div className="text-xs font-medium tracking-wide text-zinc-400 uppercase dark:text-zinc-500">{label}</div>
+      <p className="mt-1 text-sm break-words whitespace-pre-wrap text-zinc-700 dark:text-zinc-300">{text}</p>
     </div>
   );
 }
@@ -215,10 +237,12 @@ function EntryCard({ entry, isMe }: { entry: StandupEntry; isMe: boolean }) {
         <Section label="Today" text={entry.today} />
         {hasBlockers && (
           <div className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 dark:border-amber-500/30 dark:bg-amber-500/10">
-            <div className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-300">
+            <div className="flex items-center gap-1.5 text-xs font-semibold tracking-wide text-amber-700 uppercase dark:text-amber-300">
               <IconAlert className="h-3.5 w-3.5" /> Blockers
             </div>
-            <p className="mt-1 whitespace-pre-wrap break-words text-sm text-amber-900 dark:text-amber-100">{entry.blockers}</p>
+            <p className="mt-1 text-sm break-words whitespace-pre-wrap text-amber-900 dark:text-amber-100">
+              {entry.blockers}
+            </p>
           </div>
         )}
       </div>
@@ -258,7 +282,11 @@ export function StandupPage() {
         <EmptyState
           title="Couldn't load standups"
           description={errorMessage(q.error)}
-          action={<Button variant="secondary" onClick={() => void q.refetch()}>Try again</Button>}
+          action={
+            <Button variant="secondary" onClick={() => void q.refetch()}>
+              Try again
+            </Button>
+          }
         />
       ) : (
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
@@ -302,7 +330,10 @@ export function StandupPage() {
               <Skeleton className="h-96 rounded-xl" />
             )}
             <Card>
-              <CardHeader title="Not posted yet" description={q.data ? `${missing.length} of ${missing.length + (q.data.entries.length)}` : undefined} />
+              <CardHeader
+                title="Not posted yet"
+                description={q.data ? `${missing.length} of ${missing.length + q.data.entries.length}` : undefined}
+              />
               <CardBody>
                 {!q.data ? (
                   <div className="space-y-2">
