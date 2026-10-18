@@ -37,8 +37,10 @@ export function TaskCardView({
     >
       <p
         className={clsx(
-          'break-words text-sm font-medium leading-snug',
-          done ? 'text-zinc-500 line-through decoration-zinc-300 dark:text-zinc-500 dark:decoration-zinc-600' : 'text-zinc-900 dark:text-zinc-100',
+          'text-sm leading-snug font-medium break-words',
+          done
+            ? 'text-zinc-500 line-through decoration-zinc-300 dark:text-zinc-500 dark:decoration-zinc-600'
+            : 'text-zinc-900 dark:text-zinc-100',
         )}
       >
         {task.title}
@@ -90,7 +92,7 @@ export function SortableTaskCard({
     <li
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform), transition }}
-      className="rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500"
+      className="rounded-lg focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none"
       {...attributes}
       {...listeners}
       aria-label={`${task.title}. Press space to pick up, Enter to open.`}

@@ -22,7 +22,9 @@ describe('parseApiError', () => {
 describe('buildUrl', () => {
   it('prefixes /api and drops empty query params', () => {
     expect(buildUrl('/teams')).toBe('/api/teams');
-    expect(buildUrl('/teams/1/standups', { date: '2026-10-16', x: undefined })).toBe('/api/teams/1/standups?date=2026-10-16');
+    expect(buildUrl('/teams/1/standups', { date: '2026-10-16', x: undefined })).toBe(
+      '/api/teams/1/standups?date=2026-10-16',
+    );
   });
 });
 
@@ -42,7 +44,10 @@ describe('request', () => {
   });
 
   it('returns undefined for 204', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => new Response(null, { status: 204 })));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => new Response(null, { status: 204 })),
+    );
     await expect(request('DELETE', '/teams/1/members/me')).resolves.toBeUndefined();
   });
 
@@ -63,7 +68,10 @@ describe('request', () => {
   });
 
   it('maps network failures to a friendly ApiError', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Promise.reject(new TypeError('Failed to fetch'))));
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Promise.reject(new TypeError('Failed to fetch'))),
+    );
     await expect(request('GET', '/auth/me')).rejects.toMatchObject({ status: 0, code: 'NETWORK_ERROR' });
   });
 });

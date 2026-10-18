@@ -7,7 +7,7 @@ export function Brand() {
   return (
     <Link
       to="/teams"
-      className="flex items-center gap-2 rounded-lg font-semibold tracking-tight text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-zinc-100"
+      className="flex items-center gap-2 rounded-lg font-semibold tracking-tight text-zinc-900 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-zinc-100"
     >
       <IconLogo />
       <span>Standup Board</span>

@@ -22,7 +22,11 @@ const cols = (): TaskColumns => ({
   done: [t('e', 'done')],
 });
 
-const ids = (c: TaskColumns) => ({ todo: c.todo.map((x) => x.id), in_progress: c.in_progress.map((x) => x.id), done: c.done.map((x) => x.id) });
+const ids = (c: TaskColumns) => ({
+  todo: c.todo.map((x) => x.id),
+  in_progress: c.in_progress.map((x) => x.id),
+  done: c.done.map((x) => x.id),
+});
 
 describe('moveTask', () => {
   it('reorders within a column using the post-move index', () => {

@@ -70,7 +70,11 @@ export function Modal({
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-end justify-center p-0 sm:items-center sm:p-4">
-      <div className="animate-fade-in absolute inset-0 bg-zinc-950/40 backdrop-blur-[2px]" onMouseDown={onClose} aria-hidden />
+      <div
+        className="animate-fade-in absolute inset-0 bg-zinc-950/40 backdrop-blur-[2px]"
+        onMouseDown={onClose}
+        aria-hidden
+      />
       <div
         ref={panelRef}
         role="dialog"
@@ -92,7 +96,7 @@ export function Modal({
             </h2>
             {description && <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">{description}</p>}
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close dialog" className="-mr-2 -mt-1">
+          <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close dialog" className="-mt-1 -mr-2">
             <IconX className="h-4 w-4" />
           </Button>
         </div>

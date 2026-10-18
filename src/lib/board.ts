@@ -11,7 +11,10 @@ export function toColumnIds(columns: TaskColumns): ColumnIds {
   };
 }
 
-export function findTaskPosition(columns: TaskColumns | ColumnIds, taskId: string): { status: TaskStatus; index: number } | null {
+export function findTaskPosition(
+  columns: TaskColumns | ColumnIds,
+  taskId: string,
+): { status: TaskStatus; index: number } | null {
   for (const status of TASK_STATUSES) {
     const list = columns[status] as (Task | string)[];
     const index = list.findIndex((t) => (typeof t === 'string' ? t : t.id) === taskId);
@@ -45,7 +48,12 @@ export function moveTask(
   let completedAt = task.completedAt;
   if (toStatus === 'done' && from.status !== 'done') completedAt = now;
   if (toStatus !== 'done') completedAt = null;
-  target.splice(index, 0, { ...task, status: toStatus, completedAt, updatedAt: from.status !== toStatus ? now : task.updatedAt });
+  target.splice(index, 0, {
+    ...task,
+    status: toStatus,
+    completedAt,
+    updatedAt: from.status !== toStatus ? now : task.updatedAt,
+  });
   return next;
 }
 
@@ -53,7 +61,12 @@ export function replaceTask(columns: TaskColumns, task: Task): TaskColumns {
   const pos = findTaskPosition(columns, task.id);
   if (!pos) return { ...columns, [task.status]: [...columns[task.status], task] };
   if (pos.status !== task.status) {
-    return moveTask({ ...columns, [pos.status]: columns[pos.status].map((t) => (t.id === task.id ? task : t)) }, task.id, task.status, Infinity);
+    return moveTask(
+      { ...columns, [pos.status]: columns[pos.status].map((t) => (t.id === task.id ? task : t)) },
+      task.id,
+      task.status,
+      Infinity,
+    );
   }
   return { ...columns, [pos.status]: columns[pos.status].map((t) => (t.id === task.id ? task : t)) };
 }

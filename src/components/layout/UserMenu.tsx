@@ -4,7 +4,15 @@ import { useAuth, useSignOut } from '../../hooks/useAuth';
 import { Avatar, Dropdown, MenuSeparator, menuItemClass, useToast } from '../ui';
 import { IconChevronDown, IconGrid, IconLogOut, IconUser } from '../ui/icons';
 
-export function UserMenu({ compact = false, side = 'bottom', align = 'right' }: { compact?: boolean; side?: 'top' | 'bottom'; align?: 'left' | 'right' }) {
+export function UserMenu({
+  compact = false,
+  side = 'bottom',
+  align = 'right',
+}: {
+  compact?: boolean;
+  side?: 'top' | 'bottom';
+  align?: 'left' | 'right';
+}) {
   const { user } = useAuth();
   const signOut = useSignOut();
   const navigate = useNavigate();
@@ -34,7 +42,7 @@ export function UserMenu({ compact = false, side = 'bottom', align = 'right' }: 
           aria-haspopup={p['aria-haspopup']}
           aria-label="Open user menu"
           className={clsx(
-            'flex items-center gap-2 rounded-lg text-left transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+            'flex items-center gap-2 rounded-lg text-left transition-colors focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none',
             'hover:bg-zinc-100 dark:hover:bg-zinc-800',
             compact ? 'p-1' : 'w-full px-2 py-1.5',
           )}

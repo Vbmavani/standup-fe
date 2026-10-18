@@ -4,7 +4,15 @@ import { useSearchParams } from 'react-router-dom';
 import type { WeeklySummary } from '../api/types';
 import { PageHeader } from '../components/layout/AppShell';
 import { Avatar, Button, Card, CardBody, CardHeader, EmptyState, Skeleton } from '../components/ui';
-import { IconAlert, IconChart, IconCheck, IconChevronLeft, IconChevronRight, IconMessage, IconPlus } from '../components/ui/icons';
+import {
+  IconAlert,
+  IconChart,
+  IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
+  IconMessage,
+  IconPlus,
+} from '../components/ui/icons';
 import { useSummary } from '../hooks/queries';
 import { useTeamContext } from '../hooks/useTeamContext';
 import { addDays, formatDateLong, formatWeekRange, isDateKey, localToday, weekStart } from '../lib/dates';
@@ -17,7 +25,7 @@ function WeekPicker({ start, onChange }: { start: string; onChange: (s: string) 
       <Button variant="secondary" size="icon" aria-label="Previous week" onClick={() => onChange(addDays(start, -7))}>
         <IconChevronLeft className="h-4 w-4" />
       </Button>
-      <span className="min-w-[11rem] rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-center text-sm font-medium tabular-nums text-zinc-800 shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
+      <span className="min-w-[11rem] rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-center text-sm font-medium text-zinc-800 tabular-nums shadow-sm dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-200">
         {formatWeekRange(start)}
       </span>
       <Button
@@ -36,14 +44,24 @@ function WeekPicker({ start, onChange }: { start: string; onChange: (s: string) 
   );
 }
 
-function StatCard({ label, value, icon, tone }: { label: string; value: number | undefined; icon: ReactNode; tone: string }) {
+function StatCard({
+  label,
+  value,
+  icon,
+  tone,
+}: {
+  label: string;
+  value: number | undefined;
+  icon: ReactNode;
+  tone: string;
+}) {
   return (
     <Card className="p-4">
       <div className="flex items-center justify-between">
         <span className="text-sm text-zinc-500 dark:text-zinc-400">{label}</span>
         <span className={clsx('flex h-7 w-7 items-center justify-center rounded-lg', tone)}>{icon}</span>
       </div>
-      <div className="mt-2 text-2xl font-semibold tabular-nums tracking-tight text-zinc-900 dark:text-zinc-100">
+      <div className="mt-2 text-2xl font-semibold tracking-tight text-zinc-900 tabular-nums dark:text-zinc-100">
         {value === undefined ? <Skeleton className="h-8 w-12" /> : value}
       </div>
     </Card>
@@ -78,27 +96,57 @@ export function SummaryPage() {
 
   const totals = stale ? undefined : data?.totals;
   const members = [...(data?.members ?? [])].sort(
-    (a, b) => b.standupsSubmitted + b.tasksCompleted - (a.standupsSubmitted + a.tasksCompleted) || a.name.localeCompare(b.name),
+    (a, b) =>
+      b.standupsSubmitted + b.tasksCompleted - (a.standupsSubmitted + a.tasksCompleted) || a.name.localeCompare(b.name),
   );
   const hasActivity =
-    !!data && (data.totals.tasksCreated + data.totals.tasksCompleted + data.totals.standupsSubmitted + data.totals.blockers > 0);
+    !!data &&
+    data.totals.tasksCreated + data.totals.tasksCompleted + data.totals.standupsSubmitted + data.totals.blockers > 0;
 
   return (
     <>
-      <PageHeader title="Weekly summary" description="What the team got done, Monday to Sunday." actions={<WeekPicker start={start} onChange={setWeek} />} />
+      <PageHeader
+        title="Weekly summary"
+        description="What the team got done, Monday to Sunday."
+        actions={<WeekPicker start={start} onChange={setWeek} />}
+      />
       {q.isError && !q.data ? (
         <EmptyState
           title="Couldn't load the summary"
           description={errorMessage(q.error)}
-          action={<Button variant="secondary" onClick={() => void q.refetch()}>Try again</Button>}
+          action={
+            <Button variant="secondary" onClick={() => void q.refetch()}>
+              Try again
+            </Button>
+          }
         />
       ) : (
         <div className={clsx('space-y-6 transition-opacity', stale && 'opacity-60')}>
           <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            <StatCard label="Tasks created" value={totals?.tasksCreated} icon={<IconPlus className="h-4 w-4" />} tone="bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300" />
-            <StatCard label="Tasks completed" value={totals?.tasksCompleted} icon={<IconCheck className="h-4 w-4" />} tone="bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300" />
-            <StatCard label="Standups posted" value={totals?.standupsSubmitted} icon={<IconMessage className="h-4 w-4" />} tone="bg-sky-50 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300" />
-            <StatCard label="Blockers" value={totals?.blockers} icon={<IconAlert className="h-4 w-4" />} tone="bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300" />
+            <StatCard
+              label="Tasks created"
+              value={totals?.tasksCreated}
+              icon={<IconPlus className="h-4 w-4" />}
+              tone="bg-indigo-50 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-300"
+            />
+            <StatCard
+              label="Tasks completed"
+              value={totals?.tasksCompleted}
+              icon={<IconCheck className="h-4 w-4" />}
+              tone="bg-emerald-50 text-emerald-600 dark:bg-emerald-500/15 dark:text-emerald-300"
+            />
+            <StatCard
+              label="Standups posted"
+              value={totals?.standupsSubmitted}
+              icon={<IconMessage className="h-4 w-4" />}
+              tone="bg-sky-50 text-sky-600 dark:bg-sky-500/15 dark:text-sky-300"
+            />
+            <StatCard
+              label="Blockers"
+              value={totals?.blockers}
+              icon={<IconAlert className="h-4 w-4" />}
+              tone="bg-amber-50 text-amber-600 dark:bg-amber-500/15 dark:text-amber-300"
+            />
           </div>
 
           {data && !hasActivity && !stale ? (
@@ -125,11 +173,19 @@ export function SummaryPage() {
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-zinc-100 text-left text-xs font-medium uppercase tracking-wide text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
-                          <th scope="col" className="px-5 py-2.5 font-medium">Member</th>
-                          <th scope="col" className="px-3 py-2.5 text-right font-medium">Standups</th>
-                          <th scope="col" className="px-3 py-2.5 text-right font-medium">Created</th>
-                          <th scope="col" className="px-5 py-2.5 text-right font-medium">Completed</th>
+                        <tr className="border-b border-zinc-100 text-left text-xs font-medium tracking-wide text-zinc-500 uppercase dark:border-zinc-800 dark:text-zinc-400">
+                          <th scope="col" className="px-5 py-2.5 font-medium">
+                            Member
+                          </th>
+                          <th scope="col" className="px-3 py-2.5 text-right font-medium">
+                            Standups
+                          </th>
+                          <th scope="col" className="px-3 py-2.5 text-right font-medium">
+                            Created
+                          </th>
+                          <th scope="col" className="px-5 py-2.5 text-right font-medium">
+                            Completed
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800">
@@ -141,12 +197,16 @@ export function SummaryPage() {
                                 <span className="truncate font-medium text-zinc-800 dark:text-zinc-200">{m.name}</span>
                               </div>
                             </td>
-                            <td className="px-3 py-2.5 text-right tabular-nums text-zinc-700 dark:text-zinc-300">
+                            <td className="px-3 py-2.5 text-right text-zinc-700 tabular-nums dark:text-zinc-300">
                               {m.standupsSubmitted}
                               <span className="text-zinc-400">/7</span>
                             </td>
-                            <td className="px-3 py-2.5 text-right tabular-nums text-zinc-700 dark:text-zinc-300">{m.tasksCreated}</td>
-                            <td className="px-5 py-2.5 text-right tabular-nums text-zinc-700 dark:text-zinc-300">{m.tasksCompleted}</td>
+                            <td className="px-3 py-2.5 text-right text-zinc-700 tabular-nums dark:text-zinc-300">
+                              {m.tasksCreated}
+                            </td>
+                            <td className="px-5 py-2.5 text-right text-zinc-700 tabular-nums dark:text-zinc-300">
+                              {m.tasksCompleted}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
@@ -168,7 +228,7 @@ export function SummaryPage() {
                     <div className="space-y-5">
                       {groupBlockers(data.blockers).map(([date, list]) => (
                         <div key={date}>
-                          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                          <h3 className="mb-2 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
                             {formatDateLong(date)}
                           </h3>
                           <ul className="space-y-2">
@@ -179,9 +239,13 @@ export function SummaryPage() {
                               >
                                 <div className="flex items-center gap-2">
                                   <Avatar name={b.name} id={b.userId} size="xs" />
-                                  <span className="text-xs font-medium text-amber-900 dark:text-amber-200">{b.name}</span>
+                                  <span className="text-xs font-medium text-amber-900 dark:text-amber-200">
+                                    {b.name}
+                                  </span>
                                 </div>
-                                <p className="mt-1 whitespace-pre-wrap break-words text-sm text-amber-900 dark:text-amber-100">{b.text}</p>
+                                <p className="mt-1 text-sm break-words whitespace-pre-wrap text-amber-900 dark:text-amber-100">
+                                  {b.text}
+                                </p>
                               </li>
                             ))}
                           </ul>

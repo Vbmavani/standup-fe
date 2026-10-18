@@ -8,3 +8,10 @@ coverage
 *.tsbuildinfo
 .DS_Store
 .vite
+
+# Claude Code local files
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/hooks.log
+.claude/hooks.jsonl
+.claude/transcripts/

@@ -21,10 +21,7 @@ export function ProfilePage() {
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!trimmed || !dirty) return;
-    update.mutate(
-      { name: trimmed },
-      { onSuccess: () => toast.success('Profile updated') },
-    );
+    update.mutate({ name: trimmed }, { onSuccess: () => toast.success('Profile updated') });
   };
 
   return (

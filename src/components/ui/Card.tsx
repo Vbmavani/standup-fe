@@ -25,7 +25,12 @@ export function CardHeader({
   className?: string;
 }) {
   return (
-    <div className={clsx('flex items-start justify-between gap-4 border-b border-zinc-100 px-5 py-4 dark:border-zinc-800', className)}>
+    <div
+      className={clsx(
+        'flex items-start justify-between gap-4 border-b border-zinc-100 px-5 py-4 dark:border-zinc-800',
+        className,
+      )}
+    >
       <div className="min-w-0">
         <h2 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{title}</h2>
         {description && <p className="mt-0.5 text-sm text-zinc-500 dark:text-zinc-400">{description}</p>}

@@ -20,8 +20,7 @@ export type UpdateTaskInput = {
 
 export const tasksApi = {
   list: (teamId: string) => api.get<{ columns: TaskColumns }>(base(teamId)).then((r) => r.columns),
-  create: (teamId: string, body: CreateTaskInput) =>
-    api.post<{ task: Task }>(base(teamId), body).then((r) => r.task),
+  create: (teamId: string, body: CreateTaskInput) => api.post<{ task: Task }>(base(teamId), body).then((r) => r.task),
   update: (teamId: string, taskId: string, body: UpdateTaskInput) =>
     api.patch<{ task: Task }>(`${base(teamId)}/${encodeURIComponent(taskId)}`, body).then((r) => r.task),
   move: (teamId: string, taskId: string, body: { status: TaskStatus; index: number }) =>

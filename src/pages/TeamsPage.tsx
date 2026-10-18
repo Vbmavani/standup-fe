@@ -5,7 +5,18 @@ import { qk } from '../api/queryKeys';
 import { teamsApi } from '../api/teams';
 import type { Team } from '../api/types';
 import { PageHeader } from '../components/layout/AppShell';
-import { Badge, Button, Card, CardBody, CardHeader, EmptyState, FormError, Input, Skeleton, useToast } from '../components/ui';
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  EmptyState,
+  FormError,
+  Input,
+  Skeleton,
+  useToast,
+} from '../components/ui';
 import { IconChevronRight, IconUsers } from '../components/ui/icons';
 import { useTeams } from '../hooks/queries';
 import { useAuth } from '../hooks/useAuth';
@@ -15,7 +26,7 @@ function TeamCard({ team, isOwner }: { team: Team; isOwner: boolean }) {
   return (
     <Link
       to={`/t/${team.id}/standup`}
-      className="group flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-500/50"
+      className="group flex items-center gap-4 rounded-xl border border-zinc-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-300 hover:shadow-md focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-indigo-500/50"
     >
       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-base font-semibold text-white dark:bg-indigo-500">
         {team.name.trim().charAt(0).toUpperCase()}
@@ -118,7 +129,7 @@ function JoinTeamForm() {
             maxLength={16}
             autoCapitalize="characters"
             spellCheck={false}
-            className="[&_input]:font-mono [&_input]:uppercase [&_input]:tracking-widest"
+            className="[&_input]:font-mono [&_input]:tracking-widest [&_input]:uppercase"
             onChange={(e) => {
               setCode(e.target.value);
               if (join.isError) join.reset();

@@ -12,7 +12,12 @@ import {
   type DragOverEvent,
   type DragStartEvent,
 } from '@dnd-kit/core';
-import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { useMemo, useState } from 'react';
@@ -60,15 +65,20 @@ function Column({
       aria-label={STATUS_LABELS[status]}
       className="flex min-h-[200px] w-[85vw] max-w-[340px] shrink-0 snap-start flex-col rounded-xl border border-zinc-200 bg-zinc-100/60 md:w-auto md:max-w-none md:shrink dark:border-zinc-800 dark:bg-zinc-900/50"
     >
-      <header className="flex items-center justify-between px-3 pb-2 pt-3">
+      <header className="flex items-center justify-between px-3 pt-3 pb-2">
         <div className="flex items-center gap-2">
           <span className={clsx('h-2 w-2 rounded-full', COLUMN_DOT[status])} />
           <h2 className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{STATUS_LABELS[status]}</h2>
-          <span className="rounded-full bg-white px-1.5 text-xs font-medium tabular-nums text-zinc-500 ring-1 ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-700">
+          <span className="rounded-full bg-white px-1.5 text-xs font-medium text-zinc-500 tabular-nums ring-1 ring-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:ring-zinc-700">
             {taskIds.length}
           </span>
         </div>
-        <Button variant="ghost" size="icon" aria-label={`Add task to ${STATUS_LABELS[status]}`} onClick={() => onAdd(status)}>
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label={`Add task to ${STATUS_LABELS[status]}`}
+          onClick={() => onAdd(status)}
+        >
           <IconPlus className="h-4 w-4" />
         </Button>
       </header>
@@ -103,7 +113,7 @@ function Column({
         <button
           type="button"
           onClick={() => onAdd(status)}
-          className="flex w-full items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-zinc-500 transition-colors hover:bg-white hover:text-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+          className="flex w-full items-center gap-1.5 rounded-lg px-2 py-1.5 text-sm text-zinc-500 transition-colors hover:bg-white hover:text-zinc-800 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
         >
           <IconPlus className="h-4 w-4" /> Add task
         </button>
@@ -230,7 +240,11 @@ export function BoardPage() {
     <>
       <PageHeader
         title="Board"
-        description={tasks.data ? `${total} ${total === 1 ? 'task' : 'tasks'} · drag cards to update their status` : 'Plan and track the team’s work'}
+        description={
+          tasks.data
+            ? `${total} ${total === 1 ? 'task' : 'tasks'} · drag cards to update their status`
+            : 'Plan and track the team’s work'
+        }
         actions={
           <Button onClick={() => setModal({ mode: 'create', status: 'todo' })}>
             <IconPlus className="h-4 w-4" /> New task
@@ -241,7 +255,11 @@ export function BoardPage() {
         <EmptyState
           title="Couldn't load the board"
           description={errorMessage(tasks.error)}
-          action={<Button variant="secondary" onClick={() => void tasks.refetch()}>Try again</Button>}
+          action={
+            <Button variant="secondary" onClick={() => void tasks.refetch()}>
+              Try again
+            </Button>
+          }
         />
       ) : !ids ? (
         <div className="grid gap-4 md:grid-cols-3">

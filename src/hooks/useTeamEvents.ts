@@ -10,7 +10,10 @@ export function keysForEvent(type: EventType, teamId: string): (readonly unknown
     case 'standups':
       return [['standups', teamId]];
     case 'activity':
-      return [['activity', teamId], ['summary', teamId]];
+      return [
+        ['activity', teamId],
+        ['summary', teamId],
+      ];
     case 'team':
       return [['team', teamId], ['teams']];
     case 'members':

@@ -36,7 +36,7 @@ export function TeamSwitcher({ team, compact = false }: { team: Team; compact?: 
           aria-haspopup={p['aria-haspopup']}
           aria-label="Switch team"
           className={clsx(
-            'flex min-w-0 items-center gap-2 rounded-lg text-left transition-colors hover:bg-zinc-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:hover:bg-zinc-800',
+            'flex min-w-0 items-center gap-2 rounded-lg text-left transition-colors hover:bg-zinc-100 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:hover:bg-zinc-800',
             compact ? 'px-1.5 py-1' : 'w-full px-2 py-1.5',
           )}
         >
@@ -63,13 +63,7 @@ export function TeamSwitcher({ team, compact = false }: { team: Team; compact?: 
           ) : (
             <div className="max-h-64 overflow-y-auto">
               {(teams.data ?? []).map((t) => (
-                <Link
-                  key={t.id}
-                  role="menuitem"
-                  to={`/t/${t.id}/${section}`}
-                  onClick={close}
-                  className={menuItemClass}
-                >
+                <Link key={t.id} role="menuitem" to={`/t/${t.id}/${section}`} onClick={close} className={menuItemClass}>
                   <TeamMark name={t.name} className="h-5 w-5 text-[10px]" />
                   <span className="min-w-0 flex-1 truncate">{t.name}</span>
                   {t.id === team.id && <IconCheck className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />}

@@ -55,9 +55,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             className={clsx(
               'animate-toast-in pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-xl border bg-white px-4 py-3 text-sm shadow-lg',
               'dark:bg-zinc-900',
-              t.tone === 'error'
-                ? 'border-red-200 dark:border-red-500/30'
-                : 'border-zinc-200 dark:border-zinc-800',
+              t.tone === 'error' ? 'border-red-200 dark:border-red-500/30' : 'border-zinc-200 dark:border-zinc-800',
             )}
           >
             <span
@@ -80,7 +78,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <button
               type="button"
               onClick={() => dismiss(t.id)}
-              className="rounded text-zinc-400 hover:text-zinc-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 dark:hover:text-zinc-200"
+              className="rounded text-zinc-400 hover:text-zinc-600 focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:outline-none dark:hover:text-zinc-200"
               aria-label="Dismiss notification"
             >
               <IconX className="h-4 w-4" />

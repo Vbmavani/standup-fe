@@ -16,7 +16,11 @@ const MAX_LIMIT = 200;
 function TypeIcon({ type }: { type: ActivityType }) {
   const cls = 'h-3 w-3';
   const icon = type.startsWith('task.') ? (
-    type === 'task.deleted' ? <IconTrash className={cls} /> : <IconColumns className={cls} />
+    type === 'task.deleted' ? (
+      <IconTrash className={cls} />
+    ) : (
+      <IconColumns className={cls} />
+    )
   ) : type.startsWith('member.') ? (
     <IconUsers className={cls} />
   ) : type.startsWith('team.') ? (
@@ -27,7 +31,7 @@ function TypeIcon({ type }: { type: ActivityType }) {
   return (
     <span
       className={clsx(
-        'absolute -bottom-1 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full ring-2 ring-white dark:ring-zinc-900',
+        'absolute -right-1.5 -bottom-1 flex h-4 w-4 items-center justify-center rounded-full ring-2 ring-white dark:ring-zinc-900',
         type === 'task.deleted'
           ? 'bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-300'
           : 'bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300',
@@ -77,7 +81,11 @@ export function ActivityPage() {
         <EmptyState
           title="Couldn't load activity"
           description={errorMessage(q.error)}
-          action={<Button variant="secondary" onClick={() => void q.refetch()}>Try again</Button>}
+          action={
+            <Button variant="secondary" onClick={() => void q.refetch()}>
+              Try again
+            </Button>
+          }
         />
       ) : !q.data ? (
         <Card className="divide-y divide-zinc-100 dark:divide-zinc-800">
@@ -99,7 +107,7 @@ export function ActivityPage() {
         <div className="space-y-6">
           {groupByDay(items).map((g) => (
             <section key={g.day} aria-label={formatDateLong(g.day)}>
-              <h2 className="mb-2 text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+              <h2 className="mb-2 text-xs font-semibold tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
                 {relativeDayLabel(g.day, today)}
               </h2>
               <Card>
@@ -110,13 +118,13 @@ export function ActivityPage() {
                         <Avatar name={item.actorName} id={item.actorId} />
                         <TypeIcon type={item.type} />
                       </span>
-                      <p className="min-w-0 flex-1 break-words pt-1.5 text-sm text-zinc-700 dark:text-zinc-300">
+                      <p className="min-w-0 flex-1 pt-1.5 text-sm break-words text-zinc-700 dark:text-zinc-300">
                         {formatActivity(item)}
                       </p>
                       <time
                         dateTime={item.createdAt}
                         title={formatDateTime(item.createdAt)}
-                        className="shrink-0 pt-1.5 text-xs tabular-nums text-zinc-400 dark:text-zinc-500"
+                        className="shrink-0 pt-1.5 text-xs text-zinc-400 tabular-nums dark:text-zinc-500"
                       >
                         {timeAgo(item.createdAt, now)}
                       </time>

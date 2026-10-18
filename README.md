@@ -23,13 +23,13 @@ The Vite dev server proxies `/api` (including the Server-Sent Events stream) to 
 
 ## Scripts
 
-| Command | What it does |
-|---|---|
-| `pnpm dev` | Vite dev server on port 5173 |
-| `pnpm build` | Type-check and build to `dist/` |
-| `pnpm preview` | Serve the build (also proxies `/api`) |
-| `pnpm typecheck` | `tsc --noEmit` for app and config |
-| `pnpm test` | Vitest unit tests |
+| Command          | What it does                          |
+| ---------------- | ------------------------------------- |
+| `pnpm dev`       | Vite dev server on port 5173          |
+| `pnpm build`     | Type-check and build to `dist/`       |
+| `pnpm preview`   | Serve the build (also proxies `/api`) |
+| `pnpm typecheck` | `tsc --noEmit` for app and config     |
+| `pnpm test`      | Vitest unit tests                     |
 
 ## Stack
 
